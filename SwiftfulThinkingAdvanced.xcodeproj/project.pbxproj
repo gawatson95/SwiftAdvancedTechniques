@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C01B7500289C705500BF9028 /* CloudKitUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B74FF289C705500BF9028 /* CloudKitUtility.swift */; };
 		C03366742835C57C00C13E95 /* AppTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03366732835C57C00C13E95 /* AppTabBarView.swift */; };
 		C03366762835C6B200C13E95 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03366752835C6B200C13E95 /* CustomTabBarView.swift */; };
 		C033BC41283E792E002492E4 /* FuturesBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C033BC40283E792E002492E4 /* FuturesBootcamp.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C01B74FF289C705500BF9028 /* CloudKitUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitUtility.swift; sourceTree = "<group>"; };
 		C03366732835C57C00C13E95 /* AppTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarView.swift; sourceTree = "<group>"; };
 		C03366752835C6B200C13E95 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		C033BC40283E792E002492E4 /* FuturesBootcamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturesBootcamp.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				C086E6FF289C3B0A000C5B82 /* CloudKitUserBootcamp.swift */,
 				C086E702289C5141000C5B82 /* CloudKitCrudBootcamp.swift */,
 				C086E704289C65BA000C5B82 /* CloudKitPushNotification.swift */,
+				C01B74FF289C705500BF9028 /* CloudKitUtility.swift */,
 			);
 			path = CloudKitBootcamp;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				C0A45BF5283A8666002C047C /* UIViewRepresentableBootcamp.swift in Sources */,
 				C086E703289C5141000C5B82 /* CloudKitCrudBootcamp.swift in Sources */,
 				C05E2A3E283464EF00293A1E /* CustomTransitionsBootcamp.swift in Sources */,
+				C01B7500289C705500BF9028 /* CloudKitUtility.swift in Sources */,
 				C05E2A3C28345B0700293A1E /* ButtonStyleBootcamp.swift in Sources */,
 				C05E2A3A28344E4400293A1E /* ViewModifierBootcamp.swift in Sources */,
 				C05E2A2C28344DE900293A1E /* SwiftfulThinkingAdvancedApp.swift in Sources */,

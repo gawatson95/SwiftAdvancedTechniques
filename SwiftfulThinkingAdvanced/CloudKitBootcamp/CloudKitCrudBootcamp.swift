@@ -80,7 +80,7 @@ class CloudKitCrudBootcampVM: ObservableObject {
                 guard let name = record["name"] as? String else { return }
                 let imageAsset = record["image"] as? CKAsset
                 let imageURL = imageAsset?.fileURL
-                print(record)
+                //print(record)
                 returnedItems.append(FruitModel(name: name, imageURL: imageURL, record: record))
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
