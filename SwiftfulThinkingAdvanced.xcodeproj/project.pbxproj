@@ -29,6 +29,7 @@
 		C06D0764283AA9D2000F54E6 /* ProtocolsBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06D0763283AA9D2000F54E6 /* ProtocolsBootcamp.swift */; };
 		C06D0766283AAFA7000F54E6 /* DependencyInjectionBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06D0765283AAFA7000F54E6 /* DependencyInjectionBootcamp.swift */; };
 		C086E700289C3B0A000C5B82 /* CloudKitUserBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086E6FF289C3B0A000C5B82 /* CloudKitUserBootcamp.swift */; };
+		C086E703289C5141000C5B82 /* CloudKitCrudBootcamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086E702289C5141000C5B82 /* CloudKitCrudBootcamp.swift */; };
 		C08F8F572836AFC100A4E8A9 /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08F8F562836AFC100A4E8A9 /* CustomTabBarContainerView.swift */; };
 		C08F8F592836B32600A4E8A9 /* TabBarItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08F8F582836B32600A4E8A9 /* TabBarItemsPreferenceKey.swift */; };
 		C08F8F5B2836B60400A4E8A9 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08F8F5A2836B60400A4E8A9 /* TabBarItem.swift */; };
@@ -95,6 +96,7 @@
 		C06D0765283AAFA7000F54E6 /* DependencyInjectionBootcamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionBootcamp.swift; sourceTree = "<group>"; };
 		C086E6FF289C3B0A000C5B82 /* CloudKitUserBootcamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitUserBootcamp.swift; sourceTree = "<group>"; };
 		C086E701289C3C31000C5B82 /* SwiftfulThinkingAdvanced.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftfulThinkingAdvanced.entitlements; sourceTree = "<group>"; };
+		C086E702289C5141000C5B82 /* CloudKitCrudBootcamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitCrudBootcamp.swift; sourceTree = "<group>"; };
 		C08F8F562836AFC100A4E8A9 /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
 		C08F8F582836B32600A4E8A9 /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
 		C08F8F5A2836B60400A4E8A9 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				C086E6FF289C3B0A000C5B82 /* CloudKitUserBootcamp.swift */,
+				C086E702289C5141000C5B82 /* CloudKitCrudBootcamp.swift */,
 			);
 			path = CloudKitBootcamp;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				C0903A64283BE783007308F5 /* UnitTestingBootcampView.swift in Sources */,
 				C03366742835C57C00C13E95 /* AppTabBarView.swift in Sources */,
 				C0A45BF5283A8666002C047C /* UIViewRepresentableBootcamp.swift in Sources */,
+				C086E703289C5141000C5B82 /* CloudKitCrudBootcamp.swift in Sources */,
 				C05E2A3E283464EF00293A1E /* CustomTransitionsBootcamp.swift in Sources */,
 				C05E2A3C28345B0700293A1E /* ButtonStyleBootcamp.swift in Sources */,
 				C05E2A3A28344E4400293A1E /* ViewModifierBootcamp.swift in Sources */,
