@@ -9,8 +9,27 @@ import Foundation
 import CloudKit
 import Combine
 
+protocol CloudKitProtocol {
+    init?(record: CKRecord)
+    var record: CKRecord { get }
+}
+
 class CloudKitUtility {
     
+    enum CloudKitError: String, LocalizedError {
+        case iCloudAccountNotFound
+        case iCloudAccountNotDetermined
+        case iCloudAccountRestricted
+        case iCloudAccountUnknown
+        case iCloudAccountTemporarilyUnavailable
+        case iCloudApplicationPermissionNotGranted
+        case iCloudCouldNotFetchUserRecordID
+        case iCloudCouldNotDiscoverUser
+    }
+}
+
+// MARK: USER FUNCTIONS
+extension CloudKitUtility {
     static private func getiCloudStatus(completion: @escaping (Result<Bool, Error>) -> ()) {
         CKContainer.default().accountStatus { returnedStatus, returnedError in
             switch returnedStatus {
@@ -36,17 +55,6 @@ class CloudKitUtility {
                 promise(result)
             }
         }
-    }
-    
-    enum CloudKitError: String, LocalizedError {
-        case iCloudAccountNotFound
-        case iCloudAccountNotDetermined
-        case iCloudAccountRestricted
-        case iCloudAccountUnknown
-        case iCloudAccountTemporarilyUnavailable
-        case iCloudApplicationPermissionNotGranted
-        case iCloudCouldNotFetchUserRecordID
-        case iCloudCouldNotDiscoverUser
     }
     
     static private func requestApplicationPermission(completion: @escaping (Result<Bool, Error>) -> ()) {
@@ -102,6 +110,126 @@ class CloudKitUtility {
         Future { promise in
             CloudKitUtility.discoverUserIdentity { result in
                 promise(result)
+            }
+        }
+    }
+}
+
+// MARK: CRUD FUNCTIONS
+extension CloudKitUtility {
+    
+    static func fetch<T: CloudKitProtocol>(
+        predicate: NSPredicate,
+        recordType: CKRecord.RecordType,
+        sortDescriptors: [NSSortDescriptor]? = nil,
+        resultsLimit: Int? = nil) -> Future<[T], Error> {
+        Future { promise in
+            CloudKitUtility.fetch(predicate: predicate, recordType: recordType, sortDescriptors: sortDescriptors, resultsLimit: resultsLimit) { (items: [T]) in
+                promise(.success(items))
+            }
+        }
+    }
+    
+    static private func fetch<T: CloudKitProtocol>(
+        predicate: NSPredicate,
+        recordType: CKRecord.RecordType,
+        sortDescriptors: [NSSortDescriptor]? = nil,
+        resultsLimit: Int? = nil,
+        completion: @escaping (_ items: [T]) -> ()) {
+        
+        // Create operation
+        let operation = createOperation(predicate: predicate, recordType: recordType, sortDescriptors: sortDescriptors, resultsLimit: resultsLimit)
+        
+        // Get items in query
+        var returnedItems: [T] = []
+        addRecordMatchedBlock(operation: operation) { item in
+            returnedItems.append(item)
+        }
+        
+        // Query completion
+        addQueryResultBlock(operation: operation) { finished in
+            completion(returnedItems)
+        }
+        
+        // Execute operation
+        add(operation: operation)
+    }
+    
+    static private func createOperation(
+        predicate: NSPredicate,
+        recordType: CKRecord.RecordType,
+        sortDescriptors: [NSSortDescriptor]? = nil,
+        resultsLimit: Int? = nil) -> CKQueryOperation {
+            let query = CKQuery(recordType: recordType, predicate: predicate)
+            query.sortDescriptors = sortDescriptors
+            let queryOperation = CKQueryOperation(query: query)
+            if let limit = resultsLimit {
+                queryOperation.resultsLimit = limit
+            }
+            return queryOperation
+    }
+    
+    static private func addRecordMatchedBlock<T:CloudKitProtocol>(operation: CKQueryOperation, completion: @escaping (_ item: T) -> ()) {
+        operation.recordMatchedBlock = {(returnedRecordID, returnedResult) in
+            switch returnedResult {
+            case .success(let record):
+                guard let item = T(record: record) else { return }
+                completion(item)
+            case .failure:
+                break
+            }
+        }
+    }
+    
+    static private func addQueryResultBlock(operation: CKQueryOperation, completion: @escaping (_ finished: Bool) -> ()) {
+        operation.queryResultBlock = { returnedResult in
+            completion(true)
+        }
+    }
+    
+    static private func add(operation: CKDatabaseOperation) {
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+    
+    static func add<T: CloudKitProtocol>(item: T, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        // Get Record
+        let record = item.record
+        
+        // Save to CloudKit
+        save(record: record, completion: completion)
+    }
+    
+    static private func save(record: CKRecord, completion: @escaping (Result<Bool, Error>) -> ()) {
+        CKContainer.default().publicCloudDatabase.save(record) { returnedRecord, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    static func update<T: CloudKitProtocol>(item: T, completion: @escaping (Result<Bool, Error>) -> ()) {
+        add(item: item, completion: completion)
+    }
+    
+    static func delete<T: CloudKitProtocol>(item: T) -> Future<Bool, Error> {
+        Future { promise in
+            CloudKitUtility.delete(item: item, completion: promise)
+        }
+    }
+    
+    static private func delete<T:CloudKitProtocol>(item: T, completion: @escaping (Result<Bool, Error>) -> ()) {
+        CloudKitUtility.delete(record: item.record, completion: completion)
+    }
+    
+    static private func delete(record: CKRecord, completion: @escaping (Result<Bool, Error>) -> ()) {
+        CKContainer.default().publicCloudDatabase.delete(withRecordID: record.recordID) { returnedRecordID, returnedError in
+            if let error = returnedError {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
             }
         }
     }
